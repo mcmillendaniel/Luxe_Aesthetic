@@ -1,0 +1,170 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Luxe Aesthetic Design Tokens */
+
+  /* Background Colors */
+  --background-parchment: #FAF8F4;
+  --background-linen: #F3EFE8;
+  --background-warmstone: #E8E2D9;
+
+  /* Text Colors */
+  --text-espresso: #2A2420;
+  --text-mocha: #6B5E57;
+  --text-taupemist: #A89E97;
+
+  /* Accent Colors */
+  --accent-blush: #D4A5A0;
+  --accent-rosepetal: #EDD5D2;
+  --accent-antiquerose: #A67870;
+  --accent-rosewood: #7A4D48;
+
+  /* Border & White */
+  --border-warmdivider: #DDD7D0;
+  --white-cream: #FEFCF9;
+
+  /* Typography */
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Jost', sans-serif;
+
+  /* Type Sizes */
+  --text-display: 80px;
+  --text-section-headline: 36px;
+  --text-service-name: 24px;
+  --text-nav-link: 13px;
+  --text-body: 16px;
+  --text-button-label: 12px;
+  --text-caption: 13px;
+
+  /* Legacy tokens for compatibility */
+  --font-size: 16px;
+  --background: #FAF8F4;
+  --foreground: #2A2420;
+  --border: #DDD7D0;
+  --radius: 0.625rem;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  /* Luxe Aesthetic Color Tokens */
+  --color-background-parchment: var(--background-parchment);
+  --color-background-linen: var(--background-linen);
+  --color-background-warmstone: var(--background-warmstone);
+  --color-text-espresso: var(--text-espresso);
+  --color-text-mocha: var(--text-mocha);
+  --color-text-taupemist: var(--text-taupemist);
+  --color-accent-blush: var(--accent-blush);
+  --color-accent-rosepetal: var(--accent-rosepetal);
+  --color-accent-antiquerose: var(--accent-antiquerose);
+  --color-accent-rosewood: var(--accent-rosewood);
+  --color-border-warmdivider: var(--border-warmdivider);
+  --color-white-cream: var(--white-cream);
+
+  /* Legacy compatibility */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-border: var(--border);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    border-color: var(--border-warmdivider);
+  }
+
+  body {
+    background-color: var(--background-parchment);
+    color: var(--text-espresso);
+    font-family: var(--font-body);
+  }
+
+  /**
+  * Default typography styles for HTML elements (h1-h4, p, label, button, input).
+  * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
+  */
+
+  html {
+    font-size: var(--font-size);
+  }
+
+  h1 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h4 {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  label {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  button {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  input {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+  }
+}
