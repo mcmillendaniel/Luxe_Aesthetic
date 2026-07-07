@@ -6,6 +6,10 @@ import {
 } from 'react-router'
 import { routeConfig } from './app/routeConfig'
 
+// Re-exported so the prerender script (plain Node) can read route metadata
+// from the SSR bundle without needing a TypeScript loader.
+export { routeMeta } from './app/routeMeta'
+
 export async function render(url: string) {
   const { query, dataRoutes } = createStaticHandler(routeConfig)
   const request = new Request(`http://localhost${url}`)
