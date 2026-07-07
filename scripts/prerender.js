@@ -38,30 +38,49 @@ function absoluteUrl(routePath) {
 
 // Build the per-route <head> tags injected at the <!--head-tags--> marker.
 function buildHeadTags(meta) {
-  const canonicalUrl = absoluteUrl(meta.canonical ?? meta.path)
   const title = escapeHtml(meta.title)
   const description = escapeHtml(meta.description)
+  const tags = []
 
-  const tags = [
-    `<link rel="canonical" href="${escapeHtml(canonicalUrl)}" />`,
-  ]
-
+  // noindex pages get a robots tag and no canonical (a canonical pointing at a
+  // non-indexed URL is contradictory); indexable pages get a canonical link.
   if (meta.noindex) {
     tags.push('<meta name="robots" content="noindex, nofollow" />')
+  } else {
+    const canonicalUrl = absoluteUrl(meta.canonical ?? meta.path)
+    tags.push(`<link rel="canonical" href="${escapeHtml(canonicalUrl)}" />`)
   }
 
   tags.push(
     '<meta property="og:type" content="website" />',
     '<meta property="og:site_name" content="Luxe Aesthetic" />',
     `<meta property="og:title" content="${title}" />`,
-    `<meta property="og:description" content="${description}" />`,
-    `<meta property="og:url" content="${escapeHtml(canonicalUrl)}" />`,
+    `<meta property="og:description" content="${description}" />`
+  )
+
+  if (!meta.noindex) {
+    tags.push(
+      `<meta property="og:url" content="${escapeHtml(absoluteUrl(meta.canonical ?? meta.path))}" />`
+    )
+  }
+
+  tags.push(
     '<meta name="twitter:card" content="summary_large_image" />',
     `<meta name="twitter:title" content="${title}" />`,
     `<meta name="twitter:description" content="${description}" />`
   )
 
   return tags.join('\n      ')
+}
+
+// Metadata for the 404 page. Kept out of routeMeta so it is excluded from the
+// launch gate (it is intentionally thin and noindex).
+const notFoundMeta = {
+  path: '/404',
+  title: 'Page Not Found | Luxe Aesthetic',
+  description:
+    'The page you are looking for could not be found. Explore Luxe Aesthetic med spa services in Raleigh, NC or return to the homepage.',
+  noindex: true,
 }
 
 // Replace the template's default <title> / description and inject head tags.
@@ -114,6 +133,18 @@ for (const route of routes) {
 
   console.log('done')
 }
+
+// Prerender a branded 404 page. Rendering an unmatched path resolves the
+// catch-all "*" route (NotFoundPage). Vercel serves dist/404.html for any
+// path with no matching static file.
+process.stdout.write('  prerendering 404 ...')
+const notFoundApp = await render('/__not-found__')
+const notFoundHtml = applyMeta(template, notFoundMeta).replace(
+  '<!--app-html-->',
+  notFoundApp
+)
+fs.writeFileSync(path.join(distDir, '404.html'), notFoundHtml)
+console.log('done')
 
 // Clean up the server bundle — it's only needed during the build step.
 fs.rmSync(serverDir, { recursive: true, force: true })

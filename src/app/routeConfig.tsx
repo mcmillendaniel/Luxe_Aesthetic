@@ -10,6 +10,7 @@ import { AboutPage } from './pages/AboutPage'
 import { MembershipsPage } from './pages/MembershipsPage'
 import { BookPage } from './pages/BookPage'
 import { FAQPage } from './pages/FAQPage'
+import { NotFoundPage } from './pages/NotFoundPage'
 
 export const routeConfig: RouteObject[] = [
   { path: '/', Component: HomePage },
@@ -24,4 +25,6 @@ export const routeConfig: RouteObject[] = [
   { path: '/memberships', Component: MembershipsPage },
   { path: '/book', Component: BookPage },
   { path: '/faq', Component: FAQPage },
+  // Catch-all for unknown paths — renders the branded 404 (noindex).
+  { path: '*', Component: NotFoundPage },
 ]
