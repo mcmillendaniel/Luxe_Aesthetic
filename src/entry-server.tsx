@@ -9,6 +9,7 @@ import { routeConfig } from './app/routeConfig'
 // Re-exported so the prerender script (plain Node) can read route metadata
 // from the SSR bundle without needing a TypeScript loader.
 export { routeMeta } from './app/routeMeta'
+export { faqClusters } from './app/data/faqData'
 
 export async function render(url: string) {
   const { query, dataRoutes } = createStaticHandler(routeConfig)
