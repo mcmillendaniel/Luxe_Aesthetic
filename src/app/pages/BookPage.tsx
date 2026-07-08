@@ -305,27 +305,12 @@ return (
                 e.currentTarget.style.outline = 'none';
               }}
             >
-              <option value="">Select a service</option>
-              <option value="botox">Botox</option>
-              <option value="filler">Filler</option>
-              <option value="body-contouring">Body Contouring</option>
-              <option value="weight-management">Medical Weight Management</option>
-              <option value="membership">Membership</option>
-              <option value="consultation">General Consultation</option>
+              <option value="">Select a topic</option>
+              <option value="general">General inquiry</option>
+              <option value="membership">Membership information</option>
+              <option value="billing">Billing or account question</option>
+              <option value="careers">Careers / business inquiry</option>
             </select>
-          </div>
-
-          {/* Message */}
-          <div style={{ marginBottom: '24px' }}>
-            <FloatingLabelInput
-              label="Tell us a bit about what you're looking for (optional)"
-              type="textarea"
-              value={formData.message}
-              onChange={(e) => handleFieldChange('message', e.target.value)}
-              error={errors.message}
-              maxLength={500}
-              showCharCount
-            />
           </div>
 
           {/* Preferred Contact Method */}
