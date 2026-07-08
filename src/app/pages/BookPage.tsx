@@ -13,7 +13,6 @@ export function BookPage() {
     email: '',
     phone: '',
     service: '',
-    message: '',
     contactMethod: 'email',
   });
 
@@ -53,10 +52,6 @@ export function BookPage() {
       newErrors.phone = 'Please enter a valid 10-digit phone number.';
     } else if (!validatePhone(formData.phone)) {
       newErrors.phone = 'Please enter a valid 10-digit phone number.';
-    }
-
-    if (formData.message.length > 500) {
-      newErrors.message = 'Please keep your message under 500 characters.';
     }
 
     setErrors(newErrors);
