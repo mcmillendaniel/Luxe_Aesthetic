@@ -88,17 +88,6 @@ export function AboutPage() {
                 fontSize: '16px',
                 lineHeight: 1.75,
                 color: '#6B5E57',
-                marginBottom: '24px',
-              }}>
-                Board-certified and Raleigh-based, Dr. Daniel trained at [institution] and has spent the last eight years refining an approach that is equal parts clinical precision and personal attention.
-              </p>
-
-              <p style={{
-                fontFamily: 'Jost',
-                fontWeight: 300,
-                fontSize: '16px',
-                lineHeight: 1.75,
-                color: '#6B5E57',
                 marginBottom: '32px',
               }}>
                 She performs every treatment personally. She follows up with every client. And she built Luxe around a single belief: that the relationship between provider and client is what makes the results last.
