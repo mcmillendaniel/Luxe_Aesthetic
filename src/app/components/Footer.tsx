@@ -546,61 +546,6 @@ export function Footer() {
               Serving Raleigh since 2018 · 500+ five-star reviews
             </div>
 
-            {/* Center - Links */}
-            <div className="flex gap-4 items-center order-1 md:order-2">
-              <Link
-                to="/privacy"
-                className="text-xs py-2"
-                style={{
-                  fontFamily: 'Jost',
-                  fontWeight: 300,
-                  color: '#A89E97',
-                  textDecoration: 'none',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.textDecoration = 'underline';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.textDecoration = 'none';
-                }}
-                onFocus={(e) => {
-                  e.currentTarget.style.outline = '2px solid #A89E97';
-                  e.currentTarget.style.outlineOffset = '2px';
-                }}
-                onBlur={(e) => {
-                  e.currentTarget.style.outline = 'none';
-                }}
-              >
-                Privacy Policy
-              </Link>
-              <span className="text-xs" style={{ color: '#A89E97' }}>·</span>
-              <Link
-                to="/terms"
-                className="text-xs py-2"
-                style={{
-                  fontFamily: 'Jost',
-                  fontWeight: 300,
-                  color: '#A89E97',
-                  textDecoration: 'none',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.textDecoration = 'underline';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.textDecoration = 'none';
-                }}
-                onFocus={(e) => {
-                  e.currentTarget.style.outline = '2px solid #A89E97';
-                  e.currentTarget.style.outlineOffset = '2px';
-                }}
-                onBlur={(e) => {
-                  e.currentTarget.style.outline = 'none';
-                }}
-              >
-                Terms
-              </Link>
-            </div>
-
             {/* Right Side */}
             <div
               className="text-xs order-3"
