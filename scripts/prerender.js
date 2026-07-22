@@ -12,6 +12,11 @@ const serverDir = path.join(rootDir, 'dist-server')
 const env = loadEnv('production', rootDir, 'VITE_')
 const SITE_URL = (env.VITE_SITE_URL || 'https://example.com').replace(/\/+$/, '')
 
+// Opt-in de-indexing for the shared demo host. The live demo sets VITE_NOINDEX
+// so it stays out of search results; client clones leave it unset and remain
+// fully indexable. Read the same way as VITE_SITE_URL above.
+const NOINDEX = env.VITE_NOINDEX === 'true' || env.VITE_NOINDEX === '1'
+
 const template = fs.readFileSync(path.join(distDir, 'index.html'), 'utf-8')
 const { render, routeMeta, faqClusters } = await import(
   pathToFileURL(path.join(serverDir, 'entry-server.js')).href
@@ -41,6 +46,14 @@ function buildHeadTags(meta) {
   const title = escapeHtml(meta.title)
   const description = escapeHtml(meta.description)
   const tags = []
+
+  // Demo de-indexing: when VITE_NOINDEX is set, every route carries a noindex
+  // robots tag. Canonical/OG are left untouched so the launch gate still sees
+  // exactly one canonical. Skipped for pages that are already noindex (e.g. the
+  // 404) so they don't get a duplicate robots tag.
+  if (NOINDEX && !meta.noindex) {
+    tags.push('<meta name="robots" content="noindex, nofollow" />')
+  }
 
   // noindex pages get a robots tag and no canonical (a canonical pointing at a
   // non-indexed URL is contradictory); indexable pages get a canonical link.
@@ -269,7 +282,10 @@ console.log('done')
 
 // Generate sitemap.xml from the route list, excluding the /services/glp1 alias
 // (it canonicalizes to the medical weight management page).
-const sitemapUrls = routes
+// When de-indexing the demo, emit an empty sitemap so we never advertise URLs
+// that carry a noindex tag (a mixed index/noindex signal). robots.txt still
+// points here, so the referenced sitemap.xml keeps resolving.
+const sitemapUrls = (NOINDEX ? [] : routes)
   .filter((route) => route !== '/services/glp1')
   .map((route) => `  <url>\n    <loc>${escapeHtml(absoluteUrl(route))}</loc>\n  </url>`)
   .join('\n')
