@@ -71,6 +71,18 @@ function buildHeadTags(meta) {
     `<meta property="og:description" content="${description}" />`
   )
 
+  // Crawlers do not resolve relative image paths against the page URL, so the
+  // share image is always emitted as an absolute URL.
+  const imageUrl = meta.image ? escapeHtml(absoluteUrl(meta.image)) : null
+
+  if (imageUrl) {
+    tags.push(
+      `<meta property="og:image" content="${imageUrl}" />`,
+      '<meta property="og:image:width" content="1200" />',
+      '<meta property="og:image:height" content="630" />'
+    )
+  }
+
   if (!meta.noindex) {
     tags.push(
       `<meta property="og:url" content="${escapeHtml(absoluteUrl(meta.canonical ?? meta.path))}" />`
@@ -82,6 +94,10 @@ function buildHeadTags(meta) {
     `<meta name="twitter:title" content="${title}" />`,
     `<meta name="twitter:description" content="${description}" />`
   )
+
+  if (imageUrl) {
+    tags.push(`<meta name="twitter:image" content="${imageUrl}" />`)
+  }
 
   return tags.join('\n      ')
 }
